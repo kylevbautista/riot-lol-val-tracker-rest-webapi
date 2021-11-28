@@ -2,6 +2,10 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors");
+
+// cors
+app.use(cors());
 
 // mongodb conneciton
 mongoose.connect(
