@@ -22,9 +22,11 @@ db.once("open", (error) => {
 // middleware to use json
 app.use(express.json());
 
+// user routes
 const usersRouter = require("./routes/users");
 app.use("/users", usersRouter);
 
+// Choose port and server
 app.listen(3000, () => {
   console.log("Server Started");
 });
