@@ -4,6 +4,12 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+// routes
+const authRouter = require("./routes/auth");
+
+// jsonwebtoken
+const jwt = require("jsonwebtoken");
+
 // cors
 app.use(cors());
 
@@ -25,6 +31,8 @@ app.use(express.json());
 // user routes
 const usersRouter = require("./routes/users");
 app.use("/users", usersRouter);
+
+app.use("/auth", authRouter);
 
 // Choose port and server
 app.listen(3000, () => {

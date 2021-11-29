@@ -38,6 +38,7 @@ router.post("/", async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
+    following: req.body.following,
   });
   try {
     const quer = await User.findOne({ email: req.body.email });
