@@ -31,13 +31,12 @@ router.post("/login", async (req, res) => {
     console.log(user);
     if (user) {
       const validate = await bcrypt.compare(req.body.password, user.password);
-      console.log("validate " + validate);
       if (validate) {
         // ---------JsonWebToken--------------
         const token = jwt.sign(
           {
             name: req.body.name,
-            password: req.body.password,
+            password: user.password,
           },
           "secret123"
         );

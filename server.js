@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 // routes
-const authRouter = require("./routes/auth");
+const authRouter = require("./controllers/auth");
 
 // jsonwebtoken
 const jwt = require("jsonwebtoken");
@@ -29,7 +29,7 @@ db.once("open", (error) => {
 app.use(express.json());
 
 // user routes
-const usersRouter = require("./routes/users");
+const usersRouter = require("./controllers/users");
 app.use("/users", usersRouter);
 
 app.use("/auth", authRouter);

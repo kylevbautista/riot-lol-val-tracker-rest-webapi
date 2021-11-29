@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 // Middleware
 const getUser = async (req, res, next) => {
@@ -60,7 +61,9 @@ router.patch("/:id", getUser, async (req, res) => {
     res.user.name = req.body.name;
   }
   if (req.body.password != null) {
-    res.user.password = req.body.password;
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(req.body.password, salt);
+    res.user.password = hashedPass;
   }
   try {
     const updatedUser = await res.user.save();
