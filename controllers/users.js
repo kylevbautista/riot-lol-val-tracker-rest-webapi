@@ -1,7 +1,11 @@
-const express = require("express");
+// const express = require("express");
+// const router = express.Router();
+// const User = require("../models/User");
+// const bcrypt = require("bcrypt");
+import express from "express";
 const router = express.Router();
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
+import User from "../models/User.js";
+import bcrypt from "bcrypt";
 
 // Middleware
 const getUser = async (req, res, next) => {
@@ -83,4 +87,5 @@ router.delete("/:id", getUser, async (req, res) => {
   }
 });
 
-module.exports = router;
+// module.exports = router;
+export default router;

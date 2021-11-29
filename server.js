@@ -1,14 +1,20 @@
 // modules needed
-const express = require("express");
+// const express = require("express");
+// const app = express();
+// const mongoose = require("mongoose");
+// const cors = require("cors");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
 const app = express();
-const mongoose = require("mongoose");
-const cors = require("cors");
 
 // routes
-const authRouter = require("./controllers/auth");
+//const authRouter = require("./controllers/auth");
+import authRouter from "./controllers/auth.js";
 
 // jsonwebtoken
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 // cors
 app.use(cors());
@@ -29,7 +35,8 @@ db.once("open", (error) => {
 app.use(express.json());
 
 // user routes
-const usersRouter = require("./controllers/users");
+// const usersRouter = require("./controllers/users");
+import usersRouter from "./controllers/users.js";
 app.use("/users", usersRouter);
 
 app.use("/auth", authRouter);

@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const followSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -26,4 +27,4 @@ const userSchema = new mongoose.Schema({
   following: [followSchema],
 });
 
-module.exports = mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);
