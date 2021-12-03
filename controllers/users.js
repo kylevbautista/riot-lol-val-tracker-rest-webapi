@@ -6,6 +6,7 @@ import express from "express";
 const router = express.Router();
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import { authenticateToken } from "../services/auth.js";
 
 // Middleware
 const getUser = async (req, res, next) => {
@@ -23,7 +24,7 @@ const getUser = async (req, res, next) => {
 };
 
 // GET All
-router.get("/", async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);

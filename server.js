@@ -6,6 +6,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import "dotenv/config";
+
 const app = express();
 
 // routes
@@ -22,9 +24,7 @@ import jwt from "jsonwebtoken";
 app.use(cors());
 
 // mongodb conneciton
-mongoose.connect(
-  "mongodb+srv://admin:admin1@cluster0.doegn.mongodb.net/riot?retryWrites=true&w=majority"
-);
+mongoose.connect(process.env.CONNECTION_STRING);
 const db = mongoose.connection;
 db.on("error", (error) => {
   console.error(error);
@@ -33,15 +33,14 @@ db.once("open", (error) => {
   console.log("conected to database");
 });
 
-// middleware to use json
+// Middleware to use json
 app.use(express.json());
 
 // user routes
 app.use("/users", usersRouter);
-
 app.use("/auth", authRouter);
 
-// Choose port and server
+// Choose port to run server on
 app.listen(3001, () => {
   console.log("Server Started");
 });

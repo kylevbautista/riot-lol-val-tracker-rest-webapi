@@ -8,6 +8,8 @@ const router = express.Router();
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import "dotenv/config";
+import { authenticateToken } from "../services/auth.js";
 
 // CREATE one
 router.post("/register", async (req, res) => {
@@ -43,7 +45,7 @@ router.post("/login", async (req, res) => {
             name: req.body.name,
             password: user.password,
           },
-          "secret123"
+          process.env.SECRET_TOKEN
         );
         // -----------end of addition----------
         res.status(200).json({ message: "logged in", token: token });
