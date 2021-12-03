@@ -8,6 +8,7 @@ import {
   authenticateToken,
   generateAccessToken,
   generateRefreshToken,
+  refreshToAccessToken,
 } from "../services/auth.js";
 
 // CREATE one
@@ -37,22 +38,15 @@ router.post("/login", async (req, res) => {
     console.log(user);
     if (user) {
       const validate = await bcrypt.compare(req.body.password, user.password);
+
       if (validate) {
-        // ---------JsonWebToken--------------
-        // const token = jwt.sign(
-        //   {
-        //     name: req.body.name,
-        //     password: user.password,
-        //   },
-        //   process.env.SECRET_TOKEN
-        // );
         const u = {
           name: req.body.name,
           password: user.password,
         };
-        const token = await generateAccessToken(req, u);
-        const refreshToken = await generateRefreshToken(req, u);
-        // -----------end of addition----------
+        const token = await generateAccessToken(u);
+        const refreshToken = await generateRefreshToken(u);
+
         res.status(200).json({
           message: "logged in",
           token: token,
@@ -69,6 +63,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/token", async (req, res) => {});
+router.post("/token", refreshToAccessToken, async (req, res) => {});
 
 export default router;

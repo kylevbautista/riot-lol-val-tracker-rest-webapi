@@ -26,4 +26,23 @@ const generateRefreshToken = async (req, user) => {
   return jwt.sign(user, process.env.REFRESH_TOKEN);
 };
 
-export { authenticateToken, generateAccessToken, generateRefreshToken };
+const refreshToAccessToken = async (req, res, next) => {
+  const refreshToken = req.body.token;
+  if (refreshToken == null) {
+    return res.sendStatus(401);
+  }
+  // check if refresh token in database
+
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
+  });
+};
+
+export {
+  authenticateToken,
+  generateAccessToken,
+  generateRefreshToken,
+  refreshToAccessToken,
+};
