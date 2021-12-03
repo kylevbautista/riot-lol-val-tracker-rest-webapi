@@ -9,7 +9,11 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import "dotenv/config";
-import { authenticateToken } from "../services/auth.js";
+import {
+  authenticateToken,
+  generateAccessToken,
+  generateRefreshToken,
+} from "../services/auth.js";
 
 // CREATE one
 router.post("/register", async (req, res) => {
@@ -40,15 +44,25 @@ router.post("/login", async (req, res) => {
       const validate = await bcrypt.compare(req.body.password, user.password);
       if (validate) {
         // ---------JsonWebToken--------------
-        const token = jwt.sign(
-          {
-            name: req.body.name,
-            password: user.password,
-          },
-          process.env.SECRET_TOKEN
-        );
+        // const token = jwt.sign(
+        //   {
+        //     name: req.body.name,
+        //     password: user.password,
+        //   },
+        //   process.env.SECRET_TOKEN
+        // );
+        const u = {
+          name: req.body.name,
+          password: user.password,
+        };
+        const token = await generateAccessToken(req, u);
+        const refreshToken = await generateRefreshToken(req, u);
         // -----------end of addition----------
-        res.status(200).json({ message: "logged in", token: token });
+        res.status(200).json({
+          message: "logged in",
+          token: token,
+          refreshToken: refreshToken,
+        });
       } else {
         res.status(400).json({ message: "Wrong Credentials" });
       }
@@ -59,5 +73,7 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+router.post("/token", async (req, res) => {});
 
 export default router;
