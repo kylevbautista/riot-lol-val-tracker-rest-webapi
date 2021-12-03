@@ -1,24 +1,16 @@
 // modules needed
-// const express = require("express");
-// const app = express();
-// const mongoose = require("mongoose");
-// const cors = require("cors");
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+// jsonwebtoken
+import jwt from "jsonwebtoken";
 import "dotenv/config";
 
-const app = express();
-
 // routes
-// const usersRouter = require("./controllers/users");
 import usersRouter from "./controllers/users.js";
-//const authRouter = require("./controllers/auth");
 import authRouter from "./controllers/auth.js";
 
-// jsonwebtoken
-// const jwt = require("jsonwebtoken");
-import jwt from "jsonwebtoken";
+const app = express();
 
 // cors
 app.use(cors());
@@ -36,7 +28,7 @@ db.once("open", (error) => {
 // Middleware to use json
 app.use(express.json());
 
-// user routes
+// routes
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 
