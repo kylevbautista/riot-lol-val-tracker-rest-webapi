@@ -42,10 +42,10 @@ router.post("/login", async (req, res) => {
       if (validate) {
         const u = {
           name: req.body.name,
-          password: user.password,
         };
         const token = await generateAccessToken(u);
         const refreshToken = await generateRefreshToken(u);
+        // push refreshtoken onto database
 
         res.status(200).json({
           message: "logged in",
