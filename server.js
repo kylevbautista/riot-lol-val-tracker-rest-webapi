@@ -9,6 +9,8 @@ import cors from "cors";
 const app = express();
 
 // routes
+// const usersRouter = require("./controllers/users");
+import usersRouter from "./controllers/users.js";
 //const authRouter = require("./controllers/auth");
 import authRouter from "./controllers/auth.js";
 
@@ -35,13 +37,11 @@ db.once("open", (error) => {
 app.use(express.json());
 
 // user routes
-// const usersRouter = require("./controllers/users");
-import usersRouter from "./controllers/users.js";
 app.use("/users", usersRouter);
 
 app.use("/auth", authRouter);
 
 // Choose port and server
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log("Server Started");
 });
