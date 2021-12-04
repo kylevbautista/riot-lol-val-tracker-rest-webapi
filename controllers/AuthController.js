@@ -42,6 +42,7 @@ export class AuthController {
 
         if (validate) {
           const u = {
+            _id: user._id,
             name: req.body.name,
           };
           const token = await generateAccessToken(u);

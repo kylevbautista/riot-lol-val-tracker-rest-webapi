@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { decode } from "jsonwebtoken";
 import "dotenv/config";
 import User from "../models/User.js";
 
@@ -10,11 +10,12 @@ const authenticateToken = async (req, res, next) => {
     //return res.status(401).json({ message: "token bad?" });
     return res.sendStatus(401);
   }
-  jwt.verify(token, process.env.SECRET_TOKEN, (err) => {
+  jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded) => {
     if (err) {
       //return res.status(403);
       return res.sendStatus(403);
     }
+    console.log("decoded jwt", decoded);
     next();
   });
 };
