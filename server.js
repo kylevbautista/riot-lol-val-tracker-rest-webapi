@@ -2,13 +2,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-// jsonwebtoken
-import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 // routes
-import usersRouter from "./controllers/users.js";
-import authRouter from "./controllers/auth.js";
+import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
 
@@ -22,15 +20,15 @@ db.on("error", (error) => {
   console.error(error);
 });
 db.once("open", (error) => {
-  console.log("conected to database");
+  console.log("Conected to database");
 });
 
 // Middleware to use json
 app.use(express.json());
 
 // routes
-app.use("/users", usersRouter);
-app.use("/auth", authRouter);
+app.use("/users", userRoutes);
+app.use("/auth", authRoutes);
 
 // Choose port to run server on
 app.listen(3001, () => {
