@@ -7,6 +7,7 @@ import "dotenv/config";
 // routes
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import followRoutes from "./routes/followRoutes.js";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.json());
 // routes
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
+app.use("/follows", followRoutes);
 
 // Choose port to run server on
 app.listen(3001, () => {

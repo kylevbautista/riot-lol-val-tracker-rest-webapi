@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const followSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  DateAdded: { type: Date, required: true, default: Date.now },
 });
 const userSchema = new mongoose.Schema({
   name: {

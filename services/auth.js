@@ -20,7 +20,7 @@ const authenticateToken = async (req, res, next) => {
 };
 
 const generateAccessToken = async (user) => {
-  return jwt.sign(user, process.env.SECRET_TOKEN, { expiresIn: "10m" });
+  return jwt.sign(user, process.env.SECRET_TOKEN, { expiresIn: "24h" });
 };
 
 const generateRefreshToken = async (user) => {

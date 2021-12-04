@@ -8,6 +8,7 @@ import {
   generateRefreshToken,
   refreshToAccessToken,
 } from "../services/auth.js";
+import jwt from "jsonwebtoken";
 
 export class AuthController {
   constructor() {}
@@ -46,7 +47,6 @@ export class AuthController {
           const token = await generateAccessToken(u);
           const refreshToken = await generateRefreshToken(u);
           // push refreshtoken onto database
-
           res.status(200).json({
             message: "logged in",
             token: token,
