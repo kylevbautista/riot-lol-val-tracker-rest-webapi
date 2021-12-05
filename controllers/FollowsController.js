@@ -35,7 +35,7 @@ export class FollowsController {
       }
     });
     if (exists !== undefined) {
-      return res.status(400).json({ message: "You are already following" });
+      return res.status(400).json({ status: "You are already following" });
     }
     try {
       const updateFollow = await User.updateOne(
